@@ -73,7 +73,9 @@ static int my_module_probe(struct platform_device *pdev)
         }
 
         /* Fetch label */
-        err = fwnode_property_read_string(led_nodes[i].fwnode_btn, "label", &led_nodes[i].label);
+        err = fwnode_property_read_string(led_nodes[i].fwnode_btn,
+                                        "label",
+                                        &led_nodes[i].label);
         if (err) {
             printk("Failed to read label property\n");
             return -ENODATA;
@@ -81,7 +83,11 @@ static int my_module_probe(struct platform_device *pdev)
         printk("Fetched LED label %s\n", led_nodes[i].label);
 
         /* Set up LEDs as GPIO output devices */
-	    led_attrs[i].led = devm_fwnode_gpiod_get(dev, led_nodes[i].fwnode_btn, NULL, GPIOD_OUT_HIGH, led_nodes[i].label);
+	    led_attrs[i].led = devm_fwnode_gpiod_get(dev,
+                                                led_nodes[i].fwnode_btn,
+                                                NULL,
+                                                GPIOD_OUT_HIGH,
+                                                led_nodes[i].label);
         if(IS_ERR(led_attrs[i].led)) {
             printk("Error, could not set up GPIO %s\n", led_nodes[i].label);
             return -EIO;
@@ -129,20 +135,5 @@ static struct platform_driver my_led_driver = {
 	}
 };
 
-// static int __init my_module_init(void)
-// {
-// 	printk("Hello World, from BBB!!\n");
-// 	platform_driver_register(&my_led_driver);
-// 	return 0;
-// }
-
-// static void __exit my_module_exit(void)
-// {
-// 	printk("Goodbye Cruel World! BBB out!\n");
-// 	platform_driver_unregister(&my_led_driver);
-// }
-
 module_platform_driver(my_led_driver);
-// module_init(my_module_init);
-// module_exit(my_module_exit);
 MODULE_LICENSE("GPL");
