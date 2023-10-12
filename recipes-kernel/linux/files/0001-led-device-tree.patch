@@ -1,0 +1,13 @@
+diff --git a/am335x-bone-common.dtsi.orig b/am335x-bone-common.dtsi
+index 0ccdc7c..1440b7b 100644
+--- a/arch/arm/boot/dts/am335x-bone-common.dtsi
++++ b/arch/arm/boot/dts/am335x-bone-common.dtsi
+@@ -23,7 +23,7 @@
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&user_leds_s0>;
+
+-		compatible = "gpio-leds";
++		compatible = "my-gpio-leds";
+
+ 		led2 {
+ 			label = "beaglebone:green:heartbeat";
